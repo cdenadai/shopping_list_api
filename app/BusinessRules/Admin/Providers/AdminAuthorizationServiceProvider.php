@@ -7,7 +7,7 @@ use App\Providers\AuthServiceProvider;
 class AdminAuthorizationServiceProvider extends AuthServiceProvider
 {
     protected $policies = [
-        'App\BusinessRules\Admin\Models\Admin' => 'App\BusinessRules\Admin\Policies\AdminServicePolicy',
+        'App\BusinessRules\Admin\Models\Admin' => 'App\BusinessRules\Admin\Gates\AdminServicePolicy',
     ];
 
     /**

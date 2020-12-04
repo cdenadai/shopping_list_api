@@ -3,7 +3,7 @@
 namespace  App\BusinessRules\Admin\Services;
 
 use App\BusinessRules\Admin\Models\Admin;
-use App\BusinessRules\Admin\Policies\AdminGate;
+use App\BusinessRules\Admin\Gates\AdminGate;
 use App\BusinessRules\Admin\Contracts\IAdminGetAllService;
 
 class AdminGetAllService implements IAdminGetAllService

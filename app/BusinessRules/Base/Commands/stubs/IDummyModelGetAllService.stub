@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\Base\Contracts\IGetAllService;
+
+interface IDummyModelGetAllService extends IGetAllService
+{
+    public function getAll() : iterable;
+}

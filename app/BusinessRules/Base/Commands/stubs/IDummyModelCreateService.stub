@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\Base\Contracts\ICreateService;
+
+interface IDummyModelCreateService extends ICreateService
+{
+    public function create(iterable $data) : object;
+}

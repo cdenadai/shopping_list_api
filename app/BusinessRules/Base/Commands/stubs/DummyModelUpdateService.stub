@@ -1,0 +1,39 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelUpdateService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetByIdService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelValidator;
+
+class DummyModelUpdateService implements IDummyModelUpdateService
+{
+    protected $modelGetByIdService;
+    protected $validator;
+
+    public function __construct(
+        IDummyModelGetByIdService $modelGetByIdService,
+        IDummyModelValidator $validator
+    )
+    {
+        $this->modelGetByIdService = $modelGetByIdService;
+        $this->validator = $validator;
+    }
+
+    public function update(iterable $data, int $id): object
+    {
+        try {
+            $validated = $this->validator->validate($data);
+
+            $model = $this->modelGetByIdService->getById($id);
+
+            $updated = $model->update($validated);
+            if(!$updated) throw new \Exception("Error Updating", 400);
+
+            return $model;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}

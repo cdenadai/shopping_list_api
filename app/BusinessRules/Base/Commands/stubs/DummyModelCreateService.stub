@@ -1,0 +1,34 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelCreateService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelValidator;
+use App\BusinessRules\DummyModel\Models\DummyModel;
+
+class DummyModelCreateService implements IDummyModelCreateService
+{
+    protected $model;
+    protected $validator;
+
+    public function __construct(DummyModel $model, IDummyModelValidator $validator )
+    {
+        $this->model = $model;
+        $this->validator = $validator;
+    }
+
+    public function create(array $data): object
+    {
+        try {
+            $validated = $this->validator->validate($data);
+
+            $created = $this->model->create($validated);
+            if(!$created) throw new \Exception("Error Creating Registry", 400);
+
+            return $created;
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}

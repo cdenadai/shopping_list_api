@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\Base\Contracts\IDeleteService;
+
+interface IDummyModelDeleteService extends IDeleteService
+{
+    public function delete(int $id) : bool;
+}

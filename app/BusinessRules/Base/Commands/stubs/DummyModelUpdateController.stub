@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelUpdateService;
+use App\BusinessRules\Base\Controllers\BaseUpdateController;
+
+class DummyModelUpdateController extends BaseUpdateController
+{
+    public function __construct(IDummyModelUpdateService $service)
+    {
+        $this->service = $service;
+    }
+}

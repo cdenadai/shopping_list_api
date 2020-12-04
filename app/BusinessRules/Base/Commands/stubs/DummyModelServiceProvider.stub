@@ -1,0 +1,38 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Support\ServiceProvider;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelValidator;
+use App\BusinessRules\DummyModel\Validators\DummyModelValidator;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelCreateService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelUpdateService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetAllService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelDeleteService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetByIdService;
+
+use App\BusinessRules\DummyModel\Services\DummyModelCreateService;
+use App\BusinessRules\DummyModel\Services\DummyModelUpdateService;
+use App\BusinessRules\DummyModel\Services\DummyModelGetAllService;
+use App\BusinessRules\DummyModel\Services\DummyModelDeleteService;
+use App\BusinessRules\DummyModel\Services\DummyModelGetByIdService;
+
+class DummyModelServiceProvider extends ServiceProvider
+{
+    public function register()
+    {
+        $this->app->bind(IDummyModelCreateService::class, DummyModelCreateService::class);
+        $this->app->bind(IDummyModelUpdateService::class, DummyModelUpdateService::class);
+        $this->app->bind(IDummyModelGetAllService::class, DummyModelGetAllService::class);
+        $this->app->bind(IDummyModelGetByIdService::class, DummyModelGetByIdService::class);
+        $this->app->bind(IDummyModelDeleteService::class, DummyModelDeleteService::class);
+
+        $this->app->bind(IDummyModelValidator::class, DummyModelValidator::class);
+    }
+
+    public function boot()
+    {
+    }
+}

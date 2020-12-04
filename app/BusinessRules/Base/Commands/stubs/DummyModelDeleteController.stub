@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelDeleteService;
+use App\BusinessRules\Base\Controllers\BaseDeleteController;
+
+class DummyModelDeleteController extends BaseDeleteController
+{
+    public function __construct(IDummyModelDeleteService $service)
+    {
+        $this->service = $service;
+    }
+}

@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\Base\Contracts\IUpdateService;
+
+interface IDummyModelUpdateService extends IUpdateService
+{
+    public function update(iterable $data, int $id) : object;
+}

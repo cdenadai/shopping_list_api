@@ -3,8 +3,6 @@
 namespace App\BusinessRules\Admin\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\BusinessRules\Admin\Models\Admin;
-use App\BusinessRules\Admin\Policies\AdminServicePolicy;
 use App\BusinessRules\Admin\Services\AdminCreateService;
 use App\BusinessRules\Admin\Services\AdminDeleteService;
 use App\BusinessRules\Admin\Services\AdminGetAllService;

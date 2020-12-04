@@ -1,0 +1,14 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetAllService;
+use App\BusinessRules\Base\Controllers\BaseGetAllController;
+
+class DummyModelGetAllController extends BaseGetAllController
+{
+    public function __construct(IDummyModelGetAllService $service)
+    {
+        $this->service = $service;
+    }
+}

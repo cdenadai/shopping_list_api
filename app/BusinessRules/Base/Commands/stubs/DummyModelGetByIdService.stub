@@ -1,0 +1,24 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetByIdService;
+use App\BusinessRules\DummyModel\Models\DummyModel;
+
+class DummyModelGetByIdService implements IDummyModelGetByIdService
+{
+    protected $model;
+
+    public function __construct(DummyModel $model) {
+        $this->model = $model;
+    }
+
+    public function getById(int $id): object
+    {
+        try {
+            return $this->model->find($id);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}

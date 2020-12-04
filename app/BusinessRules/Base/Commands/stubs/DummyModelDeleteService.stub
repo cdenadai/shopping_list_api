@@ -1,0 +1,26 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\DummyModel\Contracts\IDummyModelDeleteService;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetByIdService;
+
+class DummyModelDeleteService implements IDummyModelDeleteService
+{
+    protected $modelGetByIdService;
+
+    public function __construct(IDummyModelGetByIdService $modelGetByIdService)
+    {
+        $this->modelGetByIdService = $modelGetByIdService;
+    }
+
+    public function delete(int $id): bool
+    {
+        try {
+            $model = $this->modelGetByIdService->getById($id);
+            return $model->delete($id);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+}

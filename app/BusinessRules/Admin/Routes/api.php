@@ -19,8 +19,7 @@ use App\BusinessRules\Admin\Controllers\AdminGetByIdController as AdminGetById;
 |
 */
 Route::get('/', [ AdminGetAll::class, 'getAll' ])->name('admin.getAll');
-Route::get('/{id}', [ AdminGetById::class, 'getById' ])->name('admin.getById');;
-Route::put('/{id}', [ AdminUpdate::class, 'update' ])->name('admin.update');;
-Route::post('/', [ AdminCreate::class, 'create' ])->name('admin.create');;
-Route::delete('/{id}', [ AdminDelete::class, 'delete' ])->name('admin.delete');;
-
+Route::get('/{id}', [ AdminGetById::class, 'getById' ])->name('admin.getById');
+Route::put('/{id}', [ AdminUpdate::class, 'update' ])->name('admin.update');
+Route::post('/', [ AdminCreate::class, 'create' ])->name('admin.create');
+Route::delete('/{id}', [ AdminDelete::class, 'delete' ])->name('admin.delete');

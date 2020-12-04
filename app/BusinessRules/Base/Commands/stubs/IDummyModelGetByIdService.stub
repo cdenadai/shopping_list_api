@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\BusinessRules\Base\Contracts\IGetByIdService;
+
+interface IDummyModelGetByIdService extends IGetByIdService
+{
+    public function getById(int $id) : object;
+}
