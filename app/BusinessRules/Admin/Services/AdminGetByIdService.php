@@ -19,7 +19,10 @@ class AdminGetByIdService implements IAdminGetByIdService
         try {
             AdminGate::authorize('view');
 
-            return $this->admin->find($id);
+            $admin = $this->admin->find($id);
+            if(!$admin) throw new \Exception("Usuário não encontrado", 400);
+
+            return $admin;
         } catch (\Throwable $th) {
             throw $th;
         }

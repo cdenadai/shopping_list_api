@@ -31,7 +31,7 @@ class AdminUpdateService implements IAdminUpdateService
             $admin = $this->adminGetByIdService->getById($id);
 
             $updated = $admin->update($validated);
-            if(!$updated) throw new \Exception("Error Updating", 400);
+            if(!$updated) throw new \Exception("Falha ao atualizar o usuário", 400);
 
             return $admin;
 

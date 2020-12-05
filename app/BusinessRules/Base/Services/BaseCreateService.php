@@ -26,7 +26,7 @@ class BaseCreateService implements ICreateService
             $validated = $this->validator->validate($data);
 
             $created = $this->model->create($validated);
-            if(!$created) throw new \Exception("Error Creating", 400);
+            if(!$created) throw new \Exception("Falha ao cadastrar registro", 400);
 
             return $created;
 

@@ -25,7 +25,7 @@ class AdminCreateService implements IAdminCreateService
             $validated['level'] = 'admin';
 
             $created = $this->admin->create($validated);
-            if(!$created) throw new \Exception("Error Creating", 400);
+            if(!$created) throw new \Exception("Falha ao cadastrar usuário", 400);
 
             return $created;
 

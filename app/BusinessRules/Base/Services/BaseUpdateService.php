@@ -25,7 +25,7 @@ class BaseUpdateService implements IUpdateService
             $model = $this->getByIdService->getById($id);
 
             $updated = $model->update($validated);
-            if(!$updated) throw new \Exception("Error Updating", 400);
+            if(!$updated) throw new \Exception("Falha ao atualizar registro", 400);
 
             return $updated;
 
