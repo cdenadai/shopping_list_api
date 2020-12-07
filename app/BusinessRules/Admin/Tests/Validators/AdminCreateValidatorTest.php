@@ -9,6 +9,7 @@ use App\BusinessRules\Admin\Tests\AdminTestCase;
 class AdminCreateValidatorTest extends AdminTestCase
 {
     protected $validator;
+    protected $adminUser;
 
     protected function setUp(): void
     {
@@ -39,7 +40,6 @@ class AdminCreateValidatorTest extends AdminTestCase
             ['email', ''],
             ['email', 'rae.reynolds'],
             ['email', 'lorem-ipsum'],
-            ['email', 'email@email'],
             ['email', 'email.com'],
             ['password', ''],
             ['password', '1234567'],
