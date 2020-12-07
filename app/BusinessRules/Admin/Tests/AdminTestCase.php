@@ -2,10 +2,28 @@
 
 namespace App\BusinessRules\Admin\Tests;
 
+use Mockery;
 use Tests\TestCase;
+use App\Models\User;
+use App\BusinessRules\Admin\Models\Admin;
 
 class AdminTestCase extends TestCase
 {
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
+
+    public function makeFakeAdminUser()
+    {
+        return Admin::factory()->count(1)->create()->first();
+    }
+
+    public function makeFakeOperatorUser()
+    {
+        return User::factory()->state(['level' => 'operator'])->count(1)->create()->first();
+    }
+
     public function validCreationFormWithoutLevel()
     {
         return [

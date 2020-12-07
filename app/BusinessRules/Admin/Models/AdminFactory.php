@@ -23,9 +23,10 @@ class AdminFactory extends Factory
     public function definition()
     {
         return [
+            'id' => $this->faker->numberBetween(1, 10),
             'name' => $this->faker->name,
-            'email' => $this->faker->email,
-            'password' => bcrypt("12345678"),
+            'email' => $this->faker->valid()->email,
+            'password' => "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi", // a senha é "password"
             'level' => 'admin'
         ];
     }

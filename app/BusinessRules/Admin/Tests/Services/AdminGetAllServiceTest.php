@@ -2,42 +2,48 @@
 
 namespace App\BusinessRules\Admin\Tests\Services;
 
+use Throwable;
+use App\BusinessRules\Admin\Models\Admin;
+use App\BusinessRules\Admin\Services\AdminGetAllService;
 use App\BusinessRules\Admin\Tests\AdminTestCase;
 
 class AdminGetAllServiceTest extends AdminTestCase
 {
-    protected $adminGetAllService;
-    protected $adminCreateService;
+    protected $adminUser;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->adminGetAllService = resolve('App\BusinessRules\Admin\Services\AdminGetAllService');
-        $this->adminCreateService = resolve('App\BusinessRules\Admin\Services\AdminCreateService');
+        $this->adminUser = $this->makeFakeAdminUser();
     }
-
-	/** @test */
-    // public function should_be_logged_as_admin_to_see()
-    // {
-    //     $this->withoutExceptionHandling();
-    // }
 
     /** @test */
     public function should_fail_if_dont_find_admins()
     {
+        $this->actingAs($this->adminUser);
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
-        $admins = $this->adminGetAllService->getAll();
+
+        $admin = $this->mock(Admin::class, function ($mock) {
+            $mock->shouldReceive('all')->once()->andThrow(new Throwable());
+        });
+
+        $getAllService = new AdminGetAllService($admin);
+        $getAllService->getAll();
     }
 
     /** @test */
     public function should_return_admins()
     {
-        $adminData = $this->validCreationFormWithoutLevel();
+        $this->actingAs($this->adminUser);
 
-        $adminUser = $this->adminCreateService->create($adminData);
+        $model = $this->mock(Admin::class, function ($mock) {
+            $mock->shouldReceive('all')->once()->andReturn(array($this->adminUser));
+        });
 
-        $admins = $this->actingAs($adminUser)->adminGetAllService->getAll();
-        $this->assertCount(1, $admins);
+        $getAllService = new AdminGetAllService($model);
+        $adminUsers = $getAllService->getAll();
+
+        $this->assertCount(1, $adminUsers);
     }
 }

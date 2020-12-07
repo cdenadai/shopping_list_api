@@ -37,6 +37,7 @@ class AdminCreateValidatorTest extends AdminTestCase
         return [
             ['name', ''],
             ['email', ''],
+            ['email', 'rae.reynolds'],
             ['email', 'lorem-ipsum'],
             ['email', 'email@email'],
             ['email', 'email.com'],

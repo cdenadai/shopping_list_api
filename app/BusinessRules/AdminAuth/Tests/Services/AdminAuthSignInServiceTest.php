@@ -1,13 +1,11 @@
 <?php
 
-namespace App\BusinessRules\AdminAuth\Tests\Login;
+namespace App\BusinessRules\AdminAuth\Tests\Services;
 
 use App\BusinessRules\AdminAuth\Tests\AdminAuthTestCase;
 
-class AdminAuthLoginServiceTest extends AdminAuthTestCase
+class AdminAuthSignInServiceTest extends AdminAuthTestCase
 {
-    protected $signinService;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -17,12 +15,14 @@ class AdminAuthLoginServiceTest extends AdminAuthTestCase
     /** @test */
     public function should_signin()
     {
-        $adminUser = $this->makeAdminFakeUser();
-        $loginForm = [
+        $adminUser = $this->makeFakeAdminUser();
+
+        $signinForm = [
             'email' => $adminUser->email,
-            'password' => 12345678
+            'password' => "password"
         ];
-        $admin = $this->signinService->signin($loginForm);
+
+        $admin = $this->signinService->signin($signinForm);
 
         $this->assertEquals('admin', $admin->level);
     }

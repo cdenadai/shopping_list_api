@@ -9,46 +9,20 @@ class AdminGateTest extends AdminTestCase
 {
     protected $gate;
     protected $adminUser;
-    protected $managerUser;
+    protected $operatorUser;
 
     protected function setUp(): void
     {
         parent::setUp();
         $this->gate = resolve('App\BusinessRules\Admin\Gates\AdminGate');
-        $this->adminUser = $this->adminUser();
-        $this->managerUser = $this->managerUser();
-    }
-
-    public function adminUser()
-    {
-        $adminData = [
-            'name' => 'adminTestUser',
-            'email' => 'admin@test.com',
-            'password' => '12345678',
-            'secret' => '1234',
-            'level' => 'admin'
-        ];
-
-        return User::create($adminData);
-    }
-
-    public function managerUser()
-    {
-        $managerData = [
-            'name' => 'managerTestUser',
-            'email' => 'manager@test.com',
-            'password' => '12345678',
-            'secret' => '1234',
-            'level' => 'manager'
-        ];
-
-        return User::create($managerData);
+        $this->adminUser = $this->makeFakeAdminUser();
+        $this->operatorUser = $this->makeFakeOperatorUser();
     }
 
 	/** @test */
     public function should_authorize_create()
     {
-        $authorized = $this->actingAs($this->managerUser)
+        $authorized = $this->actingAs($this->operatorUser)
                            ->gate
                            ->authorize('create');
 
@@ -61,7 +35,7 @@ class AdminGateTest extends AdminTestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectedExceptionCode = 403;
 
-        $authorized = $this->actingAs($this->managerUser)
+        $authorized = $this->actingAs($this->operatorUser)
                            ->gate
                            ->authorize('update');
 
@@ -81,7 +55,7 @@ class AdminGateTest extends AdminTestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectedExceptionCode = 403;
 
-        $authorized =  $this->actingAs($this->managerUser)
+        $authorized =  $this->actingAs($this->operatorUser)
                             ->gate
                             ->authorize('delete');
         $this->assertFalse($authorized);
@@ -100,7 +74,7 @@ class AdminGateTest extends AdminTestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectedExceptionCode = 403;
 
-        $authorized =  $this->actingAs($this->managerUser)
+        $authorized =  $this->actingAs($this->operatorUser)
                             ->gate
                             ->authorize('delete');
         $this->assertFalse($authorized);
@@ -119,7 +93,7 @@ class AdminGateTest extends AdminTestCase
         $this->expectException(\Illuminate\Auth\Access\AuthorizationException::class);
         $this->expectedExceptionCode = 403;
 
-        $authorized =  $this->actingAs($this->managerUser)
+        $authorized =  $this->actingAs($this->operatorUser)
                             ->gate
                             ->authorize('delete');
         $this->assertFalse($authorized);

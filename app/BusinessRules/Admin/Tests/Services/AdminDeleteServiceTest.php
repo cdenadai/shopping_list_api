@@ -2,39 +2,48 @@
 
 namespace App\BusinessRules\Admin\Tests\Services;
 
+use Throwable;
 use App\BusinessRules\Admin\Tests\AdminTestCase;
+use App\BusinessRules\Admin\Services\AdminDeleteService;
+use App\BusinessRules\Admin\Contracts\IAdminGetByIdService;
 
 class AdminDeleteServiceTest extends AdminTestCase
 {
-    protected $createService;
-    protected $deleteService;
+    protected $model;
+    protected $adminUser;
+    protected $adminGetByIdService;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->createService = resolve('App\BusinessRules\Admin\Services\AdminCreateService');
-        $this->deleteService = resolve('App\BusinessRules\Admin\Services\AdminDeleteService');
+        $this->adminUser = $this->makeFakeAdminUser();
     }
 
 	/** @test */
     public function should_not_delete_if_user_dont_exists()
     {
-        $adminData = $this->validCreationFormWithoutLevel();
-
+        $this->actingAs($this->adminUser);
         $this->expectException(\Throwable::class);
 
-        $this->deleteService->delete(1);
+        $adminGetByIdService = $this->mock(IAdminGetByIdService::class, function ($mock) {
+            $mock->shouldReceive('getById')->once()->andThrow(new Throwable());
+        });
+
+        $deleteService = new AdminDeleteService($adminGetByIdService);
+        $deleteService->delete($this->adminUser + 1);
     }
 
     /** @test */
     public function should_delete()
     {
-        $adminData = $this->validCreationFormWithoutLevel();
+        $adminGetByIdService = $this->mock(IAdminGetByIdService::class, function ($mock) {
+            $mock->shouldReceive('getById')->once()->andReturn($this->adminUser);
+        });
 
-        $admin = $this->createService->create($adminData);
-
-        $deletedUser = $this->actingAs($admin)->deleteService->delete($admin->id);
-        $this->assertTrue($deletedUser);
+        $this->actingAs($this->adminUser);
+        $deleteService = new AdminDeleteService($adminGetByIdService);
+        $couldDelete = $deleteService->delete($this->adminUser->id);
+        $this->assertTrue($couldDelete);
     }
 
 }

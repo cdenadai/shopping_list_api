@@ -13,7 +13,7 @@ class AdminAuthSignInController
         $this->service = $service;
     }
 
-    public function login(Request $request) : JsonResponse
+    public function signin(Request $request) : JsonResponse
     {
         try {
             $credentials = $request->all();
@@ -21,6 +21,7 @@ class AdminAuthSignInController
 
             return response()->json($loggedAdminUser, 200);
         } catch (\Throwable $th) {
+            dd($th);
             return responseReturn($th);
         }
     }

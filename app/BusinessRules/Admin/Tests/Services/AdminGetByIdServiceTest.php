@@ -2,42 +2,45 @@
 
 namespace App\BusinessRules\Admin\Tests\Services;
 
+use App\BusinessRules\Admin\Models\Admin;
 use App\BusinessRules\Admin\Tests\AdminTestCase;
+use App\BusinessRules\Admin\Services\AdminGetByIdService;
 
 class AdminGetByIdServiceTest extends AdminTestCase
 {
-    protected $adminGetByIdService;
-    protected $adminCreateService;
+    protected $adminUser;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->adminGetByIdService = resolve('App\BusinessRules\Admin\Services\AdminGetByIdService');
-        $this->adminCreateService = resolve('App\BusinessRules\Admin\Services\AdminCreateService');
+        $this->adminUser = $this->makeFakeAdminUser();
     }
-
-	/** @test */
-    // public function should_be_logged_as_admin_to_see()
-    // {
-    //     $this->withoutExceptionHandling();
-    // }
 
     /** @test */
     public function should_fail_if_dont_find()
     {
+        $this->actingAs($this->adminUser);
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
-        $admins = $this->adminGetByIdService->getById(1);
+
+        $model = $this->mock(Admin::class, function ($mock) {
+            $mock->shouldReceive('find')->once()->andThrow(\Throwable::class);
+        });
+
+        $getByIdService = new AdminGetByIdService($model);
+        $getByIdService->getById($this->adminUser->id + 1);
     }
 
     /** @test */
     public function should_return_admin()
     {
-        $adminData = $this->validCreationFormWithoutLevel();
+        $this->actingAs($this->adminUser);
+        $model = $this->mock(Admin::class, function ($mock) {
+            $mock->shouldReceive('find')->once()->andReturn($this->adminUser);
+        });
 
-        $adminUser = $this->adminCreateService->create($adminData);
-
-        $adminGetted = $this->actingAs($adminUser)->adminGetByIdService->getById($adminUser->id);
-        $this->assertEquals($adminGetted->id, $adminUser->id);
+        $getByIdService = new AdminGetByIdService($model);
+        $adminUser = $getByIdService->getById($this->adminUser->id);
+        $this->assertEquals($adminUser, $this->adminUser);
     }
 }

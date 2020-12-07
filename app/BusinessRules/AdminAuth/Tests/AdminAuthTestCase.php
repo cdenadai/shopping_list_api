@@ -7,7 +7,7 @@ use App\BusinessRules\Admin\Models\Admin;
 
 class AdminAuthTestCase extends TestCase
 {
-    public function makeAdminFakeUser()
+    public function makeFakeAdminUser()
     {
         return Admin::factory()->count(1)->create()->first();
     }

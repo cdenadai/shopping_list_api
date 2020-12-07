@@ -15,3 +15,4 @@ use App\BusinessRules\AdminAuth\Controllers\AdminAuthSignInController as AdminAu
 |
 */
 Route::post('/signin', [ AdminAuthSignIn::class, 'signin' ])->name('adminAuth.signin');
+Route::post('/changePassword', [ AdminAuthSignIn::class, 'changePassword' ])->name('adminAuth.changePassword');
