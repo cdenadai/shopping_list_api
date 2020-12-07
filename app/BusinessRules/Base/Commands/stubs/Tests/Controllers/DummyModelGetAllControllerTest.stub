@@ -1,0 +1,37 @@
+<?php
+
+namespace App\BusinessRules\DummyModel\Tests\Controllers;
+
+use Mockery;
+use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelGetAllService;
+use App\BusinessRules\DummyModel\Controllers\DummyModelGetAllController;
+
+class DummyModelGetAllControllerTest extends DummyModelTestCase
+{
+    protected $request;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->service = $this->mock(IDummyModelGetAllService::class, function ($mock) {
+            $mock->shouldReceive('getAll')->once()->andReturn([]);
+        });
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
+
+	/** @test */
+    public function should_return_ok_response()
+    {
+        $controller = new DummyModelGetAllController($this->service);
+
+        $response = $controller->getAll();
+
+        $this->assertEquals($response->getStatusCode(), 200);
+    }
+}

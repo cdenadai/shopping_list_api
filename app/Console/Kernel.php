@@ -42,6 +42,26 @@ class Kernel extends ConsoleKernel
 
         \App\BusinessRules\Base\Commands\MakeServiceProvider::class,
         \App\BusinessRules\Base\Commands\MakeRoutes::class,
+
+        \App\BusinessRules\Base\Commands\tests\MakeAllTests::class,
+
+        \App\BusinessRules\Base\Commands\tests\MakeControllersTests::class,
+        \App\BusinessRules\Base\Commands\tests\MakeCreateControllerTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeUpdateControllerTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeGetAllControllerTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeGetByIdControllerTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeDeleteControllerTest::class,
+
+        \App\BusinessRules\Base\Commands\tests\MakeServicesTests::class,
+        \App\BusinessRules\Base\Commands\tests\MakeCreateServiceTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeUpdateServiceTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeGetByIdServiceTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeGetAllServiceTest::class,
+        \App\BusinessRules\Base\Commands\tests\MakeDeleteServiceTest::class,
+
+        \App\BusinessRules\Base\Commands\tests\MakeValidatorTest::class,
+
+        \App\BusinessRules\Base\Commands\tests\MakeRoutesTest::class,
     ];
 
     /**

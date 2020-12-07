@@ -1,13 +1,13 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Services;
+namespace App\BusinessRules\Region\Tests\Services;
 
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
-use App\BusinessRules\DummyModel\Services\DummyModelUpdateService;
-use App\BusinessRules\DummyModel\Services\DummyModelGetByIdService;
-use App\BusinessRules\DummyModel\Contracts\IDummyModelUpdateValidator;
+use App\BusinessRules\Region\Contracts\IRegionUpdateValidator;
+use App\BusinessRules\Region\Services\RegionGetByIdService;
+use App\BusinessRules\Region\Services\RegionUpdateService;
+use App\BusinessRules\Region\Tests\RegionTestCase;
 
-class DummyModelUpdateServiceTest extends DummyModelTestCase
+class RegionUpdateServiceTest extends RegionTestCase
 {
     protected $modelInstance;
     protected $modelValidForm;
@@ -17,7 +17,7 @@ class DummyModelUpdateServiceTest extends DummyModelTestCase
     {
         $this->modelValidForm = $this->validCreationForm();
         parent::setUp();
-        $this->modelInstance = $this->makeFakeDummyModel();
+        $this->modelInstance = $this->makeFakeRegion();
     }
 
 	/** @test */
@@ -26,20 +26,20 @@ class DummyModelUpdateServiceTest extends DummyModelTestCase
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
 
-        $getByIdService = $this->mock(DummyModelGetByIdService::class, function ($mock) {
+        $getByIdService = $this->mock(RegionGetByIdService::class, function ($mock) {
             $mock->shouldReceive('getById')->once()->andThrow(\Throwable::class);
         });
 
-        $this->modelUpdateValidator = $this->mock(IDummyModelUpdateValidator::class);
+        $this->modelUpdateValidator = $this->mock(IRegionUpdateValidator::class);
 
-        $updateService = new DummyModelUpdateService($getByIdService, $this->modelUpdateValidator);
+        $updateService = new RegionUpdateService($getByIdService, $this->modelUpdateValidator);
         $updateService->update($this->modelValidForm, $this->modelInstance->id);
     }
 
     /** @test */
     public function should_update()
     {
-        $getByIdService = $this->mock(DummyModelGetByIdService::class, function ($mock) {
+        $getByIdService = $this->mock(RegionGetByIdService::class, function ($mock) {
             $mock->shouldReceive('getById')->once()->andReturn($this->modelInstance);
         });
 
@@ -47,11 +47,11 @@ class DummyModelUpdateServiceTest extends DummyModelTestCase
         $modelNewData['field_1'] = 'Field 1 Value';
         $modelNewData['field_2'] = 'Field 2 Value';
 
-        $this->modelUpdateValidator = $this->mock(IDummyModelUpdateValidator::class, function ($mock) use ($modelNewData){
+        $this->modelUpdateValidator = $this->mock(IRegionUpdateValidator::class, function ($mock) use ($modelNewData){
             $mock->shouldReceive('validate')->once()->andReturn($modelNewData);
         });
 
-        $updateService = new DummyModelUpdateService($getByIdService, $this->modelUpdateValidator);
+        $updateService = new RegionUpdateService($getByIdService, $this->modelUpdateValidator);
         $updatedModel = $updateService->update($modelNewData, $this->modelInstance->id);
 
         $this->assertEquals($updatedModel->field_1, 'Field 1 Value');

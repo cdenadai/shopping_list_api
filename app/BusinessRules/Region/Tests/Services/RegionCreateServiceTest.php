@@ -1,14 +1,14 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Services;
+namespace App\BusinessRules\Region\Tests\Services;
 
+use App\BusinessRules\Region\Contracts\IRegionCreateValidator;
+use App\BusinessRules\Region\Models\Region;
+use App\BusinessRules\Region\Services\RegionCreateService;
+use App\BusinessRules\Region\Tests\RegionTestCase;
 use Mockery;
-use App\BusinessRules\DummyModel\Models\DummyModel;
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
-use App\BusinessRules\DummyModel\Services\DummyModelCreateService;
-use App\BusinessRules\DummyModel\Contracts\IDummyModelCreateValidator;
 
-class DummyModelCreateServiceTest extends DummyModelTestCase
+class RegionCreateServiceTest extends RegionTestCase
 {
     protected $validator;
     protected $model;
@@ -18,15 +18,15 @@ class DummyModelCreateServiceTest extends DummyModelTestCase
         parent::setUp();
 
         $modelValidForm = $this->validCreationForm();
-        $modelCreated = new DummyModel();
+        $modelCreated = new Region();
         $modelCreated->fill($modelValidForm);
         $modelCreated->level = 'admin';
 
-        $this->validator = $this->mock(IDummyModelCreateValidator::class, function ($mock) use ($modelValidForm) {
+        $this->validator = $this->mock(IRegionCreateValidator::class, function ($mock) use ($modelValidForm) {
             $mock->shouldReceive('validate')->once()->andReturn($modelValidForm);
         });
 
-        $this->model = $this->mock(DummyModel::class, function ($mock) use ($modelCreated) {
+        $this->model = $this->mock(Region::class, function ($mock) use ($modelCreated) {
             $mock->shouldReceive('create')->once()->andReturn($modelCreated);
         });
     }
@@ -36,7 +36,7 @@ class DummyModelCreateServiceTest extends DummyModelTestCase
     {
         $modelData = $this->validCreationForm();
 
-        $createService = new DummyModelCreateService($this->model, $this->validator);
+        $createService = new RegionCreateService($this->model, $this->validator);
 
         $model = $createService->create($modelData);
 

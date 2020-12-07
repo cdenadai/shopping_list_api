@@ -1,18 +1,18 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Validators;
+namespace App\BusinessRules\Region\Tests\Validators;
 
+use App\BusinessRules\Region\Tests\RegionTestCase;
 use Illuminate\Validation\ValidationException;
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
 
-class DummyModelValidatorTest extends DummyModelTestCase
+class RegionValidatorTest extends RegionTestCase
 {
     protected $validator;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->validator = resolve('App\BusinessRules\DummyModel\Validators\DummyModelValidator');
+        $this->validator = resolve('App\BusinessRules\Region\Validators\RegionValidator');
     }
     /**
      * @dataProvider requiredFormValidationProvider

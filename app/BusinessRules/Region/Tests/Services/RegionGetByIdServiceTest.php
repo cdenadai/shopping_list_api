@@ -1,19 +1,19 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Services;
+namespace App\BusinessRules\Region\Tests\Services;
 
-use App\BusinessRules\DummyModel\Models\DummyModel;
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
-use App\BusinessRules\DummyModel\Services\DummyModelGetByIdService;
+use App\BusinessRules\Region\Models\Region;
+use App\BusinessRules\Region\Services\RegionGetByIdService;
+use App\BusinessRules\Region\Tests\RegionTestCase;
 
-class DummyModelGetByIdServiceTest extends DummyModelTestCase
+class RegionGetByIdServiceTest extends RegionTestCase
 {
     protected $modelInstance;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->modelInstance = $this->makeFakeDummyModel();
+        $this->modelInstance = $this->makeFakeRegion();
     }
 
     /** @test */
@@ -22,22 +22,22 @@ class DummyModelGetByIdServiceTest extends DummyModelTestCase
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
 
-        $model = $this->mock(DummyModel::class, function ($mock) {
+        $model = $this->mock(Region::class, function ($mock) {
             $mock->shouldReceive('find')->once()->andThrow(\Throwable::class);
         });
 
-        $getByIdService = new DummyModelGetByIdService($model);
+        $getByIdService = new RegionGetByIdService($model);
         $getByIdService->getById($this->modelInstance->id + 1);
     }
 
     /** @test */
     public function should_return_model()
     {
-        $model = $this->mock(DummyModel::class, function ($mock) {
+        $model = $this->mock(Region::class, function ($mock) {
             $mock->shouldReceive('find')->once()->andReturn($this->modelInstance);
         });
 
-        $getByIdService = new DummyModelGetByIdService($model);
+        $getByIdService = new RegionGetByIdService($model);
         $modelInstance = $getByIdService->getById($this->modelInstance->id);
         $this->assertEquals($modelInstance, $this->modelInstance);
     }

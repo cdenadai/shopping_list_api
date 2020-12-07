@@ -1,0 +1,37 @@
+<?php
+
+namespace App\BusinessRules\DummyModel\Tests\Controllers;
+
+use Mockery;
+use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelDeleteService;
+use App\BusinessRules\DummyModel\Controllers\DummyModelDeleteController;
+
+class DummyModelDeleteControllerTest extends DummyModelTestCase
+{
+    protected $request;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->service = $this->mock(IDummyModelDeleteService::class, function ($mock) {
+            $mock->shouldReceive('delete')->once()->andReturn(true);
+        });
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
+
+	/** @test */
+    public function should_return_ok_response()
+    {
+        $controller = new DummyModelDeleteController($this->service);
+
+        $response = $controller->delete(1);
+
+        $this->assertEquals($response->getStatusCode(), 200);
+    }
+}

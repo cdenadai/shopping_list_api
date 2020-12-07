@@ -1,20 +1,20 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Services;
+namespace App\BusinessRules\Region\Tests\Services;
 
+use App\BusinessRules\Region\Models\Region;
+use App\BusinessRules\Region\Services\RegionGetAllService;
+use App\BusinessRules\Region\Tests\RegionTestCase;
 use Throwable;
-use App\BusinessRules\DummyModel\Models\DummyModel;
-use App\BusinessRules\DummyModel\Services\DummyModelGetAllService;
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
 
-class DummyModelGetAllServiceTest extends DummyModelTestCase
+class RegionGetAllServiceTest extends RegionTestCase
 {
     protected $modelInstance;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->modelInstance = $this->makeFakeDummyModel();
+        $this->modelInstance = $this->makeFakeRegion();
     }
 
     /** @test */
@@ -23,22 +23,22 @@ class DummyModelGetAllServiceTest extends DummyModelTestCase
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
 
-        $admin = $this->mock(DummyModel::class, function ($mock) {
+        $admin = $this->mock(Region::class, function ($mock) {
             $mock->shouldReceive('all')->once()->andThrow(new Throwable());
         });
 
-        $getAllService = new DummyModelGetAllService($admin);
+        $getAllService = new RegionGetAllService($admin);
         $getAllService->getAll();
     }
 
     /** @test */
     public function should_return_admins()
     {
-        $model = $this->mock(DummyModel::class, function ($mock) {
+        $model = $this->mock(Region::class, function ($mock) {
             $mock->shouldReceive('all')->once()->andReturn(array($this->modelInstance));
         });
 
-        $getAllService = new DummyModelGetAllService($model);
+        $getAllService = new RegionGetAllService($model);
         $modelInstances = $getAllService->getAll();
 
         $this->assertCount(1, $modelInstances);

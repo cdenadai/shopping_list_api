@@ -1,0 +1,44 @@
+<?php
+
+namespace App\BusinessRules\DummyModel\Tests\Controllers;
+
+use Mockery;
+use Illuminate\Http\Request;
+use App\BusinessRules\DummyModel\Models\DummyModel;
+use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelCreateService;
+use App\BusinessRules\DummyModel\Controllers\DummyModelCreateController;
+
+class DummyModelCreateControllerTest extends DummyModelTestCase
+{
+    protected $request;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $createForm = $this->validCreationFormWithoutLevel();
+
+        $this->request = $this->mock(Request::class, function ($mock) use ($createForm) {
+            $mock->shouldReceive('all')->once()->andReturn($createForm);
+        });
+
+        $this->service = $this->mock(IDummyModelCreateService::class, function ($mock) {
+            $mock->shouldReceive('create')->once()->andReturn(new DummyModel());
+        });
+    }
+
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
+
+	/** @test */
+    public function should_return_created_response()
+    {
+        $controller = new DummyModelCreateController($this->service);
+
+        $response = $controller->create($this->request);
+
+        $this->assertEquals($response->getStatusCode(), 201);
+    }
+}

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\BusinessRules\DummyModel\Tests\Services;
+namespace App\BusinessRules\Region\Tests\Services;
 
+use App\BusinessRules\Region\Contracts\IRegionGetByIdService;
+use App\BusinessRules\Region\Services\RegionDeleteService;
+use App\BusinessRules\Region\Tests\RegionTestCase;
 use Throwable;
-use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
-use App\BusinessRules\DummyModel\Services\DummyModelDeleteService;
-use App\BusinessRules\DummyModel\Contracts\IDummyModelGetByIdService;
 
-class DummyModelDeleteServiceTest extends DummyModelTestCase
+class RegionDeleteServiceTest extends RegionTestCase
 {
     protected $model;
     protected $modelInstance;
@@ -16,7 +16,7 @@ class DummyModelDeleteServiceTest extends DummyModelTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->modelInstance = $this->makeFakeDummyModel();
+        $this->modelInstance = $this->makeFakeRegion();
     }
 
 	/** @test */
@@ -24,22 +24,22 @@ class DummyModelDeleteServiceTest extends DummyModelTestCase
     {
         $this->expectException(\Throwable::class);
 
-        $modelGetByIdService = $this->mock(IDummyModelGetByIdService::class, function ($mock) {
+        $modelGetByIdService = $this->mock(IRegionGetByIdService::class, function ($mock) {
             $mock->shouldReceive('getById')->once()->andThrow(new Throwable());
         });
 
-        $deleteService = new DummyModelDeleteService($modelGetByIdService);
+        $deleteService = new RegionDeleteService($modelGetByIdService);
         $deleteService->delete($this->modelInstance->id + 1);
     }
 
     /** @test */
     public function should_delete()
     {
-        $modelGetByIdService = $this->mock(IDummyModelGetByIdService::class, function ($mock) {
+        $modelGetByIdService = $this->mock(IRegionGetByIdService::class, function ($mock) {
             $mock->shouldReceive('getById')->once()->andReturn($this->modelInstance);
         });
 
-        $deleteService = new DummyModelDeleteService($modelGetByIdService);
+        $deleteService = new RegionDeleteService($modelGetByIdService);
         $deleted = $deleteService->delete($this->modelInstance->id);
         $this->assertTrue($deleted);
     }
