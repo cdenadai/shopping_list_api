@@ -13,7 +13,7 @@ class AdminUpdateValidator extends BaseValidator implements IAdminUpdateValidato
         return [
             'id' => ['required'],
             'name' => ['required', 'max:255'],
-            'email' => ['required', 'email:rfc,strict,dns', 'unique:users,email']
+            'email' => ['required', 'email:filter', 'unique:users,email']
         ];
     }
 
