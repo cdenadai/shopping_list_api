@@ -1,32 +1,33 @@
 <?php
-namespace App\BusinessRules\Base\Commands\tests;
+
+namespace App\BusinessRules\Base\Commands;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeRoutesTest extends GeneratorCommand
+class MakeModelFactory extends GeneratorCommand
 {
   /**
    * O nome e a assinatura do comando do console.
    *
    * @var string
    */
-  protected $name = 'make:custom_routes_test';
+  protected $name = 'make:custom_model_factory';
 
  /**
    * A descrição do comando do console.
    *
    * @var string
    */
-  protected $description = 'Create a model Routes Test';
+  protected $description = 'Create a model Factory';
 
     /**
    * O tipo de classe sendo gerada.
    *
    * @var string
    */
-  protected $type = 'RoutesTest';
+  protected $type = 'Factory';
 
      /**
      * Substitui o nome da classe para o stub fornecido.
@@ -38,14 +39,7 @@ class MakeRoutesTest extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
-        $stub = $this->replaceModel($stub);
         return str_replace('DummyModel', $this->argument('name'), $stub);
-    }
-
-    protected function replaceModel($stub)
-    {
-        $modelPluralLowercase = Str::plural(Str::lower($this->argument('name')));
-        return str_replace('model', $modelPluralLowercase, $stub);
     }
   /**
    * Obtpem o arquivo stub para o gerador.
@@ -54,7 +48,17 @@ class MakeRoutesTest extends GeneratorCommand
    */
   protected function getStub()
   {
-    return  app()->path() . '/BusinessRules/Base/Commands/stubs/Tests/Routes/DummyModelRoutesTest.stub';
+    return  app()->path() . '/BusinessRules/Base/Commands/stubs/DummyModelFactory.stub';
+  }
+     /**
+   * Obtém o namespace padrão para a classe.
+   *
+   * @param  string  $rootNamespace
+   * @return string
+   */
+  protected function getDefaultNamespace($rootNamespace)
+  {
+    return $rootNamespace . '\BusinessRules\DummyModel\Models';
   }
 
       /**
@@ -71,16 +75,6 @@ class MakeRoutesTest extends GeneratorCommand
 
         return str_replace('DummyModel', $this->argument('name'), $path);
     }
-     /**
-   * Obtém o namespace padrão para a classe.
-   *
-   * @param  string  $rootNamespace
-   * @return string
-   */
-  protected function getDefaultNamespace($rootNamespace)
-  {
-    return $rootNamespace . '\BusinessRules\DummyModel\Tests\Routes';
-  }
 
     /**
      * Obtém os argumentos do comando do console.
@@ -90,7 +84,7 @@ class MakeRoutesTest extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the model route test.'],
+            ['name', InputArgument::REQUIRED, 'The name of the model factory.'],
         ];
     }
 }

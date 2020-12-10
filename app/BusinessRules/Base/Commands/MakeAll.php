@@ -36,10 +36,12 @@ class MakeAll extends Command
         $this->call('make:custom_service_interfaces', [ 'name' => $name]);
         $this->call('make:custom_validator_interface', [ 'name' => $name]);
         $this->call('make:custom_model', [ 'name' => $name]);
+        $this->call('make:custom_model_factory', [ 'name' => $name]);
         $this->call('make:custom_services', [ 'name' => $name]);
         $this->call('make:custom_validator', [ 'name' => $name]);
         $this->call('make:custom_controllers', [ 'name' => $name]);
         $this->call('make:custom_provider', [ 'name' => $name]);
         $this->call('make:custom_routes', [ 'name' => $name]);
+        $this->call('make:custom_all_tests', [ 'name' => $name]);
     }
 }

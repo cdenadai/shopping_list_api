@@ -5,7 +5,7 @@ namespace App\BusinessRules\DummyModel\Tests\Services;
 use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
 use App\BusinessRules\DummyModel\Services\DummyModelUpdateService;
 use App\BusinessRules\DummyModel\Services\DummyModelGetByIdService;
-use App\BusinessRules\DummyModel\Contracts\IDummyModelUpdateValidator;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelValidator;
 
 class DummyModelUpdateServiceTest extends DummyModelTestCase
 {
@@ -30,7 +30,7 @@ class DummyModelUpdateServiceTest extends DummyModelTestCase
             $mock->shouldReceive('getById')->once()->andThrow(\Throwable::class);
         });
 
-        $this->modelUpdateValidator = $this->mock(IDummyModelUpdateValidator::class);
+        $this->modelUpdateValidator = $this->mock(IDummyModelValidator::class);
 
         $updateService = new DummyModelUpdateService($getByIdService, $this->modelUpdateValidator);
         $updateService->update($this->modelValidForm, $this->modelInstance->id);
@@ -44,17 +44,16 @@ class DummyModelUpdateServiceTest extends DummyModelTestCase
         });
 
         $modelNewData['id'] = $this->modelInstance->id;
-        $modelNewData['field_1'] = 'Field 1 Value';
-        $modelNewData['field_2'] = 'Field 2 Value';
+        $modelNewData['name'] = 'test';
 
-        $this->modelUpdateValidator = $this->mock(IDummyModelUpdateValidator::class, function ($mock) use ($modelNewData){
+        $this->modelUpdateValidator = $this->mock(IDummyModelValidator::class, function ($mock) use ($modelNewData){
             $mock->shouldReceive('validate')->once()->andReturn($modelNewData);
         });
 
         $updateService = new DummyModelUpdateService($getByIdService, $this->modelUpdateValidator);
         $updatedModel = $updateService->update($modelNewData, $this->modelInstance->id);
 
-        $this->assertEquals($updatedModel->field_1, 'Field 1 Value');
+        $this->assertEquals($updatedModel->name, 'test');
     }
 
 }

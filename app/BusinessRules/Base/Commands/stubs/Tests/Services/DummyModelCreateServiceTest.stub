@@ -6,7 +6,7 @@ use Mockery;
 use App\BusinessRules\DummyModel\Models\DummyModel;
 use App\BusinessRules\DummyModel\Tests\DummyModelTestCase;
 use App\BusinessRules\DummyModel\Services\DummyModelCreateService;
-use App\BusinessRules\DummyModel\Contracts\IDummyModelCreateValidator;
+use App\BusinessRules\DummyModel\Contracts\IDummyModelValidator;
 
 class DummyModelCreateServiceTest extends DummyModelTestCase
 {
@@ -20,9 +20,8 @@ class DummyModelCreateServiceTest extends DummyModelTestCase
         $modelValidForm = $this->validCreationForm();
         $modelCreated = new DummyModel();
         $modelCreated->fill($modelValidForm);
-        $modelCreated->level = 'admin';
 
-        $this->validator = $this->mock(IDummyModelCreateValidator::class, function ($mock) use ($modelValidForm) {
+        $this->validator = $this->mock(IDummyModelValidator::class, function ($mock) use ($modelValidForm) {
             $mock->shouldReceive('validate')->once()->andReturn($modelValidForm);
         });
 
@@ -40,7 +39,7 @@ class DummyModelCreateServiceTest extends DummyModelTestCase
 
         $model = $createService->create($modelData);
 
-        $this->assertEquals('modelFieldValue', $model->field);
+        $this->assertEquals('Test Name', $model->name);
 
     }
 

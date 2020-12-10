@@ -38,7 +38,14 @@ class MakeRoutes extends GeneratorCommand
     protected function replaceClass($stub, $name)
     {
         $stub = parent::replaceClass($stub, $name);
+        $stub = $this->replaceModel($stub);
         return str_replace('DummyModel', $this->argument('name'), $stub);
+    }
+
+    protected function replaceModel($stub)
+    {
+        $modelPluralLowercase = Str::plural(Str::lower($this->argument('name')));
+        return str_replace('model', $modelPluralLowercase, $stub);
     }
   /**
    * Obtpem o arquivo stub para o gerador.

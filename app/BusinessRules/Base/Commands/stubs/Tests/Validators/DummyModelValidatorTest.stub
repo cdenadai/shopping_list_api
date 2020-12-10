@@ -34,15 +34,14 @@ class DummyModelValidatorTest extends DummyModelTestCase
     public function requiredFormValidationProvider()
     {
         return [
-            ['field_1', ''],
-            ['field_2', '']
+            ['name', '']
         ];
     }
 
 	/** @test */
     public function should_not_fails_valid_form()
     {
-        $modelData =  [];
+        $modelData =  ['name' => 'test' ];
 
         $validated = $this->validator->validate($modelData);
         $this->assertEquals($validated, $modelData);

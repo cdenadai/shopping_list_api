@@ -33,6 +33,7 @@ class MakeAllTests extends Command
     {
         $name = $this->argument('name');
 
+        $this->call('make:custom_test_case', [ 'name' => $name]);
         $this->call('make:custom_services_tests', [ 'name' => $name]);
         $this->call('make:custom_validator_test', [ 'name' => $name]);
         $this->call('make:custom_controllers_tests', [ 'name' => $name]);

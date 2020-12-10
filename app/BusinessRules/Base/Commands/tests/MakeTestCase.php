@@ -1,32 +1,32 @@
 <?php
-namespace App\BusinessRules\Base\Commands;
+namespace App\BusinessRules\Base\Commands\tests;
 
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
-class MakeUpdateServiceInterface extends GeneratorCommand
+class MakeTestCase extends GeneratorCommand
 {
-    /**
-     * O nome e a assinatura do comando do console.
-     *
-     * @var string
-     */
-    protected $name = 'make:custom_update_service_interface';
+  /**
+   * O nome e a assinatura do comando do console.
+   *
+   * @var string
+   */
+  protected $name = 'make:custom_test_case';
+
+ /**
+   * A descrição do comando do console.
+   *
+   * @var string
+   */
+  protected $description = 'Create a Test Case';
 
     /**
-     * A descrição do comando do console.
-     *
-     * @var string
-     */
-    protected $description = 'Create a update service interface';
-
-        /**
-     * O tipo de classe sendo gerada.
-     *
-     * @var string
-     */
-    protected $type = 'UpdateService';
+   * O tipo de classe sendo gerada.
+   *
+   * @var string
+   */
+  protected $type = 'TestCase';
 
      /**
      * Substitui o nome da classe para o stub fornecido.
@@ -40,34 +40,30 @@ class MakeUpdateServiceInterface extends GeneratorCommand
         $stub = parent::replaceClass($stub, $name);
         return str_replace('DummyModel', $this->argument('name'), $stub);
     }
+  /**
+   * Obtpem o arquivo stub para o gerador.
+   *
+   * @return string
+   */
+  protected function getStub()
+  {
+    return  app()->path() . '/BusinessRules/Base/Commands/stubs/Tests/DummyModelTestCase.stub';
+  }
 
-    /**
-     * Obtpem o arquivo stub para o gerador.
-     *
-     * @return string
-     */
-    protected function getStub()
-    {
-        return  app()->path() . '/BusinessRules/Base/Commands/stubs/IDummyModelUpdateService.stub';
-    }
-
-    /**
+      /**
      * Get the destination class path.
      *
      * @param  string  $name
      * @return string
-    */
+     */
     protected function getPath($name)
     {
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
 
         $path = $this->laravel['path'].'/'.str_replace('\\', '/', $name).$this->type.'.php';
 
-        $completePath = str_replace('DummyModel', $this->argument('name'), $path);
-
-        return str_replace($this->argument('name').$this->type, 'I'.$this->argument('name').$this->type, $completePath);
+        return str_replace('DummyModel', $this->argument('name'), $path);
     }
-
      /**
    * Obtém o namespace padrão para a classe.
    *
@@ -76,7 +72,7 @@ class MakeUpdateServiceInterface extends GeneratorCommand
    */
   protected function getDefaultNamespace($rootNamespace)
   {
-    return $rootNamespace . '\BusinessRules\DummyModel\Contracts';
+    return $rootNamespace . '\BusinessRules\DummyModel\Tests';
   }
 
     /**
@@ -87,7 +83,7 @@ class MakeUpdateServiceInterface extends GeneratorCommand
     protected function getArguments()
     {
         return [
-            ['name', InputArgument::REQUIRED, 'The name of the service interface.'],
+            ['name', InputArgument::REQUIRED, 'The name of the test case.'],
         ];
     }
 }

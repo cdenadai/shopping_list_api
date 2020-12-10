@@ -17,7 +17,7 @@ class DummyModelCreateService implements IDummyModelCreateService
         $this->validator = $validator;
     }
 
-    public function create(array $data): object
+    public function create(iterable $data): object
     {
         try {
             $validated = $this->validator->validate($data);

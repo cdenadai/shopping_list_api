@@ -3,8 +3,18 @@
 namespace DummyNamespace;
 
 use Tests\TestCase;
+use App\BusinessRules\DummyModel\Models\DummyModel;
 
-class DummyModel extends TestCase
+class DummyModelTestCase extends TestCase
 {
+    public function validCreationForm() {
+        return [
+            'name' => 'Test Name'
+        ];
+    }
 
+    public function makeFakeDummyModel()
+    {
+        return DummyModel::factory()->count(1)->create()->first();
+    }
 }
