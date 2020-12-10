@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\BusinessRules\Base\Commands\MakeAll::class,
         \App\BusinessRules\Base\Commands\MakeModel::class,
+        \App\BusinessRules\Base\Commands\MakeModelFactory::class,
 
         \App\BusinessRules\Base\Commands\MakeControllers::class,
         \App\BusinessRules\Base\Commands\MakeCreateController::class,
@@ -44,6 +45,7 @@ class Kernel extends ConsoleKernel
         \App\BusinessRules\Base\Commands\MakeRoutes::class,
 
         \App\BusinessRules\Base\Commands\tests\MakeAllTests::class,
+        \App\BusinessRules\Base\Commands\tests\MakeTestCase::class,
 
         \App\BusinessRules\Base\Commands\tests\MakeControllersTests::class,
         \App\BusinessRules\Base\Commands\tests\MakeCreateControllerTest::class,

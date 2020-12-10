@@ -16,30 +16,30 @@ class RegionRoutesTest extends RegionTestCase
 
 	/** @test */
     public function should_exist_create_route(){
-        $route = route('model.create');
-        $this->assertEquals($this->baseURL.'/api/model', $route);
+        $route = route('regions.create');
+        $this->assertEquals($this->baseURL.'/api/admin/regions', $route);
     }
 
 	/** @test */
     public function should_exist_update_route(){
-        $route = route('model.update', 1);
-        $this->assertEquals($this->baseURL.'/api/model/1', $route);
+        $route = route('regions.update', 1);
+        $this->assertEquals($this->baseURL.'/api/admin/regions/1', $route);
     }
 
 	/** @test */
     public function should_exist_getAll_route(){
-        $route = route('model.getAll');
-        $this->assertEquals($this->baseURL.'/api/model', $route);
+        $route = route('regions.getAll');
+        $this->assertEquals($this->baseURL.'/api/admin/regions', $route);
     }
 
 	/** @test */
     public function should_exist_getById_route(){
-        $route = route('model.getById', 1);
-        $this->assertEquals($this->baseURL.'/api/model/1', $route);
+        $route = route('regions.getById', 1);
+        $this->assertEquals($this->baseURL.'/api/admin/regions/1', $route);
     }
 	/** @test */
     public function should_exist_Delete_route(){
-        $route = route('model.delete', 1);
-        $this->assertEquals($this->baseURL.'/api/model/1', $route);
+        $route = route('regions.delete', 1);
+        $this->assertEquals($this->baseURL.'/api/admin/regions/1', $route);
     }
 }

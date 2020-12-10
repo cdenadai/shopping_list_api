@@ -2,7 +2,7 @@
 
 namespace App\BusinessRules\Region\Tests\Services;
 
-use App\BusinessRules\Region\Contracts\IRegionCreateValidator;
+use App\BusinessRules\Region\Contracts\IRegionValidator;
 use App\BusinessRules\Region\Models\Region;
 use App\BusinessRules\Region\Services\RegionCreateService;
 use App\BusinessRules\Region\Tests\RegionTestCase;
@@ -20,9 +20,8 @@ class RegionCreateServiceTest extends RegionTestCase
         $modelValidForm = $this->validCreationForm();
         $modelCreated = new Region();
         $modelCreated->fill($modelValidForm);
-        $modelCreated->level = 'admin';
 
-        $this->validator = $this->mock(IRegionCreateValidator::class, function ($mock) use ($modelValidForm) {
+        $this->validator = $this->mock(IRegionValidator::class, function ($mock) use ($modelValidForm) {
             $mock->shouldReceive('validate')->once()->andReturn($modelValidForm);
         });
 
@@ -40,7 +39,7 @@ class RegionCreateServiceTest extends RegionTestCase
 
         $model = $createService->create($modelData);
 
-        $this->assertEquals('modelFieldValue', $model->field);
+        $this->assertEquals('test', $model->name);
 
     }
 

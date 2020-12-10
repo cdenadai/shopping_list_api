@@ -34,15 +34,18 @@ class RegionValidatorTest extends RegionTestCase
     public function requiredFormValidationProvider()
     {
         return [
-            ['field_1', ''],
-            ['field_2', '']
+            ['name', ''],
+            ['location', '']
         ];
     }
 
 	/** @test */
     public function should_not_fails_valid_form()
     {
-        $modelData =  [];
+        $modelData =  [
+            'name' => 'test',
+            'location' => 'POINT(-22.260357, -48.550854)'
+        ];
 
         $validated = $this->validator->validate($modelData);
         $this->assertEquals($validated, $modelData);

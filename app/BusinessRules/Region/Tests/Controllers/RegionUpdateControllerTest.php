@@ -16,7 +16,7 @@ class RegionUpdateControllerTest extends RegionTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $updateForm = $this->validCreationFormWithoutLevel();
+        $updateForm = $this->validCreationForm();
 
         $this->request = $this->mock(Request::class, function ($mock) use ($updateForm) {
             $mock->shouldReceive('all')->once()->andReturn($updateForm);

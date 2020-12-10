@@ -16,7 +16,7 @@ class RegionCreateControllerTest extends RegionTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $createForm = $this->validCreationFormWithoutLevel();
+        $createForm = $this->validCreationForm();
 
         $this->request = $this->mock(Request::class, function ($mock) use ($createForm) {
             $mock->shouldReceive('all')->once()->andReturn($createForm);

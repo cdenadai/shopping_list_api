@@ -177,6 +177,7 @@ return [
         App\BusinessRules\Admin\Providers\AdminServiceProvider::class,
         App\BusinessRules\Admin\Providers\AdminAuthorizationServiceProvider::class,
         App\BusinessRules\AdminAuth\Providers\AdminAuthServiceProvider::class,
+        App\BusinessRules\Region\Providers\RegionServiceProvider::class,
     ],
 
     /*

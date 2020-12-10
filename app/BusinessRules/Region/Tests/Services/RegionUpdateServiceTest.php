@@ -2,7 +2,7 @@
 
 namespace App\BusinessRules\Region\Tests\Services;
 
-use App\BusinessRules\Region\Contracts\IRegionUpdateValidator;
+use App\BusinessRules\Region\Contracts\IRegionValidator;
 use App\BusinessRules\Region\Services\RegionGetByIdService;
 use App\BusinessRules\Region\Services\RegionUpdateService;
 use App\BusinessRules\Region\Tests\RegionTestCase;
@@ -30,7 +30,7 @@ class RegionUpdateServiceTest extends RegionTestCase
             $mock->shouldReceive('getById')->once()->andThrow(\Throwable::class);
         });
 
-        $this->modelUpdateValidator = $this->mock(IRegionUpdateValidator::class);
+        $this->modelUpdateValidator = $this->mock(IRegionValidator::class);
 
         $updateService = new RegionUpdateService($getByIdService, $this->modelUpdateValidator);
         $updateService->update($this->modelValidForm, $this->modelInstance->id);
@@ -44,17 +44,16 @@ class RegionUpdateServiceTest extends RegionTestCase
         });
 
         $modelNewData['id'] = $this->modelInstance->id;
-        $modelNewData['field_1'] = 'Field 1 Value';
-        $modelNewData['field_2'] = 'Field 2 Value';
+        $modelNewData['name'] = 'test';
 
-        $this->modelUpdateValidator = $this->mock(IRegionUpdateValidator::class, function ($mock) use ($modelNewData){
+        $this->modelUpdateValidator = $this->mock(IRegionValidator::class, function ($mock) use ($modelNewData){
             $mock->shouldReceive('validate')->once()->andReturn($modelNewData);
         });
 
         $updateService = new RegionUpdateService($getByIdService, $this->modelUpdateValidator);
         $updatedModel = $updateService->update($modelNewData, $this->modelInstance->id);
 
-        $this->assertEquals($updatedModel->field_1, 'Field 1 Value');
+        $this->assertEquals($updatedModel->name, 'test');
     }
 
 }
