@@ -23,16 +23,16 @@ class DummyModelGetAllServiceTest extends DummyModelTestCase
         $this->expectException(\Throwable::class);
         $this->expectedExceptionCode = 400;
 
-        $admin = $this->mock(DummyModel::class, function ($mock) {
+        $model = $this->mock(DummyModel::class, function ($mock) {
             $mock->shouldReceive('all')->once()->andThrow(new Throwable());
         });
 
-        $getAllService = new DummyModelGetAllService($admin);
+        $getAllService = new DummyModelGetAllService($model);
         $getAllService->getAll();
     }
 
     /** @test */
-    public function should_return_admins()
+    public function should_return_models()
     {
         $model = $this->mock(DummyModel::class, function ($mock) {
             $mock->shouldReceive('all')->once()->andReturn(array($this->modelInstance));

@@ -26,7 +26,7 @@ class MakeRoutes extends GeneratorCommand
    *
    * @var string
    */
-  protected $type = 'Routes';
+  protected $type = 'ApiRoutes';
 
      /**
      * Substitui o nome da classe para o stub fornecido.
