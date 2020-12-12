@@ -174,6 +174,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\BusinessRules\Base\Providers\BaseServiceProvider::class,
         App\BusinessRules\Admin\Providers\AdminServiceProvider::class,
         App\BusinessRules\Admin\Providers\AdminAuthorizationServiceProvider::class,
         App\BusinessRules\AdminAuth\Providers\AdminAuthServiceProvider::class,

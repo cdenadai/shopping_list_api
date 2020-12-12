@@ -13,57 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\BusinessRules\Base\Commands\MakeAll::class,
-        \App\BusinessRules\Base\Commands\MakeModel::class,
-        \App\BusinessRules\Base\Commands\MakeModelFactory::class,
 
-        \App\BusinessRules\Base\Commands\MakeControllers::class,
-        \App\BusinessRules\Base\Commands\MakeCreateController::class,
-        \App\BusinessRules\Base\Commands\MakeUpdateController::class,
-        \App\BusinessRules\Base\Commands\MakeGetAllController::class,
-        \App\BusinessRules\Base\Commands\MakeGetByIdController::class,
-        \App\BusinessRules\Base\Commands\MakeDeleteController::class,
-
-        \App\BusinessRules\Base\Commands\MakeServiceInterfaces::class,
-        \App\BusinessRules\Base\Commands\MakeCreateServiceInterface::class,
-        \App\BusinessRules\Base\Commands\MakeUpdateServiceInterface::class,
-        \App\BusinessRules\Base\Commands\MakeGetByIdServiceInterface::class,
-        \App\BusinessRules\Base\Commands\MakeGetAllServiceInterface::class,
-        \App\BusinessRules\Base\Commands\MakeDeleteServiceInterface::class,
-
-        \App\BusinessRules\Base\Commands\MakeServices::class,
-        \App\BusinessRules\Base\Commands\MakeCreateService::class,
-        \App\BusinessRules\Base\Commands\MakeUpdateService::class,
-        \App\BusinessRules\Base\Commands\MakeGetByIdService::class,
-        \App\BusinessRules\Base\Commands\MakeGetAllService::class,
-        \App\BusinessRules\Base\Commands\MakeDeleteService::class,
-
-        \App\BusinessRules\Base\Commands\MakeValidator::class,
-        \App\BusinessRules\Base\Commands\MakeValidatorInterface::class,
-
-        \App\BusinessRules\Base\Commands\MakeServiceProvider::class,
-        \App\BusinessRules\Base\Commands\MakeRoutes::class,
-
-        \App\BusinessRules\Base\Commands\tests\MakeAllTests::class,
-        \App\BusinessRules\Base\Commands\tests\MakeTestCase::class,
-
-        \App\BusinessRules\Base\Commands\tests\MakeControllersTests::class,
-        \App\BusinessRules\Base\Commands\tests\MakeCreateControllerTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeUpdateControllerTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeGetAllControllerTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeGetByIdControllerTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeDeleteControllerTest::class,
-
-        \App\BusinessRules\Base\Commands\tests\MakeServicesTests::class,
-        \App\BusinessRules\Base\Commands\tests\MakeCreateServiceTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeUpdateServiceTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeGetByIdServiceTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeGetAllServiceTest::class,
-        \App\BusinessRules\Base\Commands\tests\MakeDeleteServiceTest::class,
-
-        \App\BusinessRules\Base\Commands\tests\MakeValidatorTest::class,
-
-        \App\BusinessRules\Base\Commands\tests\MakeRoutesTest::class,
     ];
 
     /**
@@ -85,6 +35,8 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+        $this->load(base_path('app/BusinessRules/Base/Commands'));
+        $this->load(base_path('app/BusinessRules/Base/Commands/tests'));
 
         require base_path('routes/console.php');
     }
